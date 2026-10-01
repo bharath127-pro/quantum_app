@@ -8,6 +8,34 @@
 
 
 <style>
+  .clear-gate-btn {
+  height:52px;
+  padding:0 16px;
+  border:2px solid #dc2626;
+  color:#dc2626;
+  background:#fff;
+  border-radius:9px;
+  font-weight:800;
+}
+
+.clear-gate-btn:hover {
+  background:#fee2e2;
+}
+
+.reset-btn {
+  background:#eef2ff;
+  color:#4f46e5;
+  padding:10px 15px;
+  border-radius:9px;
+  font-weight:700;
+}
+
+.gate.selected {
+  background:#635bff;
+  color:white;
+  transform:translateY(-2px);
+  box-shadow:0 5px 15px rgba(99,91,255,.25);
+}
   .account-wrapper {
   position: relative;
 }
@@ -422,13 +450,66 @@ main{flex:1;padding:32px;max-width:1400px}
   <div class="lab">
     <div class="panel">
       <h3>Quantum Gates</h3>
-      <div class="gates">
-        <button class="gate" onclick="addGate('H')">H</button>
-        <button class="gate" onclick="addGate('X')">X</button>
-        <button class="gate" onclick="addGate('Z')">Z</button>
-        <button class="gate" onclick="addGate('CX')">CX</button>
-      </div>
-      <button class="smallbtn" onclick="simulate()">▶ Run Simulation</button>
+      
+      <div class="gates" style="align-items:center;flex-wrap:wrap">
+
+  <button type="button"
+          class="gate"
+          onclick="addGate('H')">
+    H
+  </button>
+
+  <button type="button"
+          class="gate"
+          onclick="addGate('X')">
+    X
+  </button>
+
+  <button type="button"
+          class="gate"
+          onclick="addGate('Z')">
+    Z
+  </button>
+
+  <button type="button"
+          class="gate"
+          onclick="addGate('CX')">
+    CX
+  </button>
+
+  <button type="button"
+          class="clear-gate-btn"
+          onclick="clearGates()">
+    ✕ Clear Circuit
+  </button>
+
+</div>
+
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+
+  <button type="button"
+          class="smallbtn"
+          onclick="simulate()">
+    ▶ Run Simulation
+  </button>
+
+  <button type="button"
+          class="reset-btn"
+          onclick="clearGates()">
+    ↺ Reset
+  </button>
+
+</div>
+
+<div id="gateStatus"
+     style="margin-top:14px;
+            padding:12px 15px;
+            background:#f8fafc;
+            border-radius:10px;
+            color:#64748b;
+            font-size:14px">
+  Circuit is empty. Choose a gate to begin.
+</div>
       <div class="circuit">
         <div class="qubit"><b>q₀</b><div class="line"></div><strong id="q0">|0⟩</strong><div class="line"></div></div>
         <div class="qubit"><b>q₁</b><div class="line"></div><strong>|0⟩</strong><div class="line"></div></div>
@@ -508,6 +589,89 @@ document.getElementById("question").addEventListener("keydown", function(event) 
 <script>
 let currentUser=null;
 let gates=[];
+function addGate(gate) {
+
+  gates.push(gate);
+
+  updateCircuitDisplay();
+
+  const status = document.getElementById("gateStatus");
+
+  if (status) {
+    status.innerText =
+      "Current circuit: " + gates.join(" → ");
+  }
+
+  document.getElementById("output").innerText =
+    "Gate added: " + gate +
+    "\n\nClick ▶ Run Simulation to see the result.";
+}
+
+
+function clearGates() {
+
+  gates = [];
+
+  document.getElementById("q0").innerText = "|0⟩";
+
+  const q1 = document.querySelector(
+    ".qubit:nth-child(2) strong"
+  );
+
+  if (q1) {
+    q1.innerText = "|0⟩";
+  }
+
+  const status =
+    document.getElementById("gateStatus");
+
+  if (status) {
+    status.innerText =
+      "Circuit is empty. Choose a gate to begin.";
+  }
+
+  document.getElementById("output").innerText =
+    "Circuit cleared.\n\n" +
+    "Choose H, X, Z or CX to build a new circuit.";
+
+  document.querySelectorAll(".gate").forEach(button => {
+    button.classList.remove("selected");
+  });
+}
+
+
+function updateCircuitDisplay() {
+
+  const q0 =
+    document.getElementById("q0");
+
+  if (!q0) return;
+
+  let state = "|0⟩";
+
+  if (gates.includes("X")) {
+    state = "|1⟩";
+  }
+
+  if (gates.includes("H")) {
+    state = "|+⟩";
+  }
+
+  q0.innerText = state;
+
+  document.querySelectorAll(".gate").forEach(button => {
+
+    const gate =
+      button.innerText.trim();
+
+    if (gates.includes(gate)) {
+      button.classList.add("selected");
+    } else {
+      button.classList.remove("selected");
+    }
+
+  });
+}
 function togglePassword(inputId, button) {
   const input = document.getElementById(inputId);
 
