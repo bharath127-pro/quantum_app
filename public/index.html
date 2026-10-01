@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum Algorithm — Learning Platform</title>
+
+
+
+<style>
+  .account-wrapper {
+  position: relative;
+}
+
+.account-button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: #635bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.account-menu {
+  position: absolute;
+  right: 0;
+  top: 52px;
+  width: 240px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 10px;
+  z-index: 1000;
+}
+
+.account-info {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 6px;
+}
+
+.account-info strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.account-info span {
+  display: block;
+  font-size: 13px;
+  color: #777;
+  word-break: break-word;
+}
+
+.account-menu button {
+  width: 100%;
+  padding: 11px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.account-menu button:hover {
+  background: #f3f4ff;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
+body{background:#f5f7fb;color:#172033}
+button{border:0;cursor:pointer;font-weight:700}
+.hidden{display:none!important}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,#111827,#4f46e5)}
+.login-card{width:420px;background:#fff;padding:34px;border-radius:22px;box-shadow:0 20px 60px #0003}
+.logo{font-size:25px;font-weight:900;margin-bottom:10px}.logo span{color:#635bff}
+.login-card p{color:#6b7280;margin-bottom:24px}
+input{width:100%;padding:13px 14px;border:1px solid #dbe0e8;border-radius:10px;margin:7px 0 12px;font-size:14px}
+.primary{background:#635bff;color:#fff;padding:13px 18px;border-radius:10px;width:100%;margin-top:6px}
+.demo{background:#f5f3ff;padding:15px;border-radius:12px;margin-top:18px;font-size:13px;line-height:1.7}
+.app{display:none;min-height:100vh}
+nav{height:70px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 5%}
+nav .links{display:flex;gap:22px}nav a{cursor:pointer;color:#4b5563}
+.avatar{background:#635bff;color:#fff;padding:10px 13px;border-radius:50%}
+.layout{display:flex;min-height:calc(100vh - 70px)}
+.sidebar{width:230px;background:#111827;color:#fff;padding:24px 14px}
+.sidebar h3{padding:0 12px 22px}.menu{padding:13px 14px;border-radius:9px;margin-bottom:5px;color:#cbd5e1;cursor:pointer}.menu.active,.menu:hover{background:#635bff;color:#fff}
+main{flex:1;padding:32px;max-width:1400px}
+.page{display:none}.page.active{display:block}
+.welcome{margin-bottom:28px}.welcome h1{font-size:32px;margin-bottom:7px}.muted{color:#6b7280}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.stat,.card,.panel{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:21px}
+.stat small{color:#6b7280}.stat h2{margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card h3{margin:12px 0 8px}.card p{color:#6b7280;font-size:14px;line-height:1.5}.icon{font-size:34px}
+.progress{height:7px;background:#e5e7eb;border-radius:20px;margin:15px 0 7px}.progress div{height:100%;background:#635bff;border-radius:20px}
+.smallbtn{background:#635bff;color:#fff;padding:10px 15px;border-radius:9px;margin-top:15px}
+.lab{display:grid;grid-template-columns:1fr 1fr;gap:18px}.gates{display:flex;gap:10px;margin:20px 0}.gate{width:52px;height:52px;border:2px solid #635bff;color:#635bff;background:#fff;border-radius:9px;font-weight:800}.circuit{background:#f8fafc;padding:25px;border-radius:12px;margin-top:20px}.qubit{display:flex;gap:12px;align-items:center;margin:24px 0}.line{height:2px;background:#94a3b8;flex:1}
+.output{background:#111827;color:#22c55e;padding:18px;border-radius:10px;font-family:monospace;white-space:pre-wrap;min-height:150px}
+.code{width:100%;height:280px;background:#111827;color:#e5e7eb;border:0;border-radius:12px;padding:18px;font-family:monospace;resize:vertical}
+.chat{max-width:850px}.messages{background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:20px;min-height:300px;margin-bottom:12px}.msg{padding:11px 14px;border-radius:10px;max-width:75%;margin-bottom:10px;line-height:1.5;font-size:14px}.ai{background:#eef2ff}.user{background:#635bff;color:#fff;margin-left:auto}.chatbar{display:flex;gap:10px}.chatbar input{margin:0}.chatbar button{background:#635bff;color:#fff;padding:0 20px;border-radius:10px}
+.badge{display:inline-block;padding:6px 9px;background:#eef2ff;color:#4f46e5;border-radius:8px;margin:4px;font-size:12px}
+.course-detail-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.chapter-list {
+  background: #f8f9ff;
+  border-radius: 14px;
+  padding: 15px;
+}
+
+.chapter-button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px;
+  margin-bottom: 8px;
+  border: none;
+  border-radius: 9px;
+  background: white;
+  cursor: pointer;
+  text-align: left;
+}
+
+.chapter-button:hover {
+  background: #eef0ff;
+}
+
+.chapter-content {
+  background: white;
+  border-radius: 14px;
+  padding: 25px;
+  min-height: 400px;
+}
+
+@media (max-width: 800px) {
+  .course-detail-layout {
+    grid-template-columns: 1fr;
+  }
+}
+@media(max-width:900px){.sidebar{width:70px}.sidebar h3{display:none}.menu{font-size:0;text-align:center}.menu::first-letter{font-size:20px}.stats{grid-template-columns:repeat(2,1fr)}.grid,.lab{grid-template-columns:1fr}}
+
+@media(max-width:600px){nav .links{display:none}main{padding:20px}.stats{grid-template-columns:1fr}.login-card{width:100%}}
+</style>
+<link rel="stylesheet" href="/css/quantum-world.css">
+</head>
+<body>
+
+  
+
+
+
+
+<section id="login" class="login">
+<div class="login-card">
+  <div class="logo">Quantum <span>Algorithm</span></div>
+  <p>Learn quantum. Program quantum. Simulate quantum.</p>
+  <label>Email</label>
+  <input
+  id="email"
+  type="email"
+  placeholder="Enter your email">
+  
+  
+  
+
+  <label>Password</label>
+
+<div style="position:relative">
+  <input
+    id="password"
+    type="password"
+    placeholder="Enter your password"
+  >
+
+  <button
+    type="button"
+    onclick="togglePassword('password', this)"
+    style="position:absolute;right:10px;top:13px;background:none;padding:0;color:#635bff;"
+  >
+    👁
+  </button>
+</div>
+ 
+  
+  <button class="primary" onclick="login()">Sign in</button>
+  <div style="text-align:center;margin-top:15px">
+  Don't have an account?
+  <button
+    type="button"
+    onclick="showRegister()"
+    style="background:none;color:#635bff;padding:5px">
+    Create Account
+  </button>
+</div>
+  
+
+  <div id="loginError" style="color:#dc2626;margin-top:12px;font-size:13px"></div>
+</div>
+</section>
+<section id="register" class="login" style="display:none">
+  <div class="login-card">
+
+    <div class="logo">
+      Quantum <span>Algorithm</span>
+    </div>
+
+    <p>Create your quantum learning account.</p>
+
+    <label>Name</label>
+    <input id="registerName" placeholder="Enter your name">
+
+    <label>Email</label>
+    <input id="registerEmail" type="email" placeholder="Enter your email">
+
+    
+    <label>Password</label>
+
+<div style="position:relative">
+
+  <input
+    id="registerPassword"
+    type="password"
+    placeholder="Create a password">
+
+  <button
+    type="button"
+    onclick="togglePassword('registerPassword', this)"
+    style="
+      position:absolute;
+      right:10px;
+      top:13px;
+      background:none;
+      padding:0;
+      color:#635bff;
+    ">
+    👁
+  </button>
+
+</div>
+
+
+<label>Confirm Password</label>
+
+<div style="position:relative">
+
+  <input
+    id="confirmPassword"
+    type="password"
+    placeholder="Confirm your password">
+
+  <button
+    type="button"
+    onclick="togglePassword('confirmPassword', this)"
+    style="
+      position:absolute;
+      right:10px;
+      top:13px;
+      background:none;
+      padding:0;
+      color:#635bff;
+    ">
+    👁
+  </button>
+
+</div>
+
+    <label>Role</label>
+    <select id="registerRole"
+      style="width:100%;padding:13px;margin:7px 0 12px;border:1px solid #dbe0e8;border-radius:10px">
+      <option value="student">Student</option>
+      <option value="instructor">Instructor</option>
+    </select>
+
+    <button class="primary" onclick="register()">
+      Create Account
+    </button>
+
+    <div style="text-align:center;margin-top:15px">
+      Already have an account?
+      <button
+        type="button"
+        onclick="showLogin()"
+        style="background:none;color:#635bff;padding:5px">
+        Sign In
+      </button>
+    </div>
+
+    <div id="registerMessage"
+      style="margin-top:12px;text-align:center">
+    </div>
+
+  </div>
+</section>
+<section id="app" class="app">
+<div id="quantumAppWorld"
+     class="quantum-app-world"
+     aria-hidden="true">
+</div>  
+<nav>
+  <div class="logo">Quantum <span>Algorithm</span></div>
+  <div class="links">
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('learn')">Learn</a>
+    <a onclick="showPage('lab')">Quantum Lab</a>
+    <a onclick="showPage('tutor')">AI Tutor</a>
+  </div>
+  <div class="account-wrapper">
+
+  <button
+    class="account-button"
+    onclick="toggleAccountMenu()"
+    id="avatar"
+  >
+    U
+  </button>
+
+  <div
+    id="accountMenu"
+    class="account-menu"
+    style="display:none"
+  >
+
+    <div class="account-info">
+      <strong id="accountMenuName">
+        User
+      </strong>
+
+      <span id="accountMenuEmail">
+        user@email.com
+      </span>
+    </div>
+
+    <button onclick="openProfileFromMenu()">
+      👤 View Profile
+    </button>
+
+    <button onclick="openHelp()">
+      ❓ Help
+    </button>
+
+    <button onclick="logout()">
+      🚪 Logout
+    </button>
+
+  </div>
+
+</div>
+</nav>
+
+<div class="layout">
+<aside class="sidebar">
+  <h3>QUANTUM</h3>
+  <div class="menu active" onclick="showPage('home',this)">🏠 Dashboard</div>
+  <div class="menu" onclick="showPage('learn',this)">📚 Learn</div>
+  <div class="menu" onclick="showPage('lab',this)">⚛️ Quantum Lab</div>
+  <div class="menu" onclick="showPage('code',this)">💻 Programming</div>
+  <div class="menu" onclick="showPage('tutor',this)">🤖 AI Tutor</div>
+  <div class="menu" onclick="showPage('challenges',this)">🏆 Challenges</div>
+  <div class="menu" onclick="showPage('profile',this)">👤 Profile</div>
+  <div class="menu" onclick="logout()" style="margin-top:25px">🚪 Logout</div>
+</aside>
+
+<main>
+
+<section id="home" class="page active">
+  
+  <div class="welcome">
+  <h1>
+    <span id="welcomeText">Welcome back</span>,
+    <span id="userName">Student</span> 👋
+  </h1>
+
+  <p class="muted">
+    Build the skills for a quantum-ready workforce.
+  </p>
+</div>
+  
+  
+<div class="stats">
+
+  <div class="stat">
+    <small>Learning Progress</small>
+    <h2 id="progress">0%</h2>
+  </div>
+
+  <div class="stat">
+    <small>Quantum Skill Score</small>
+    <h2 id="skill">0</h2>
+  </div>
+
+  <div class="stat">
+    <small>Projects Built</small>
+    <h2 id="projectsBuilt">0</h2>
+  </div>
+
+  <div class="stat">
+    <small>Challenges</small>
+    <h2 id="challengesCompleted">0</h2>
+  </div>
+
+</div>
+  <h2 style="margin-bottom:16px">Continue Learning</h2>
+  <div class="grid" id="courseCards"></div>
+</section>
+
+<section id="learn" class="page">
+  <h1>Learning Paths</h1><p class="muted" style="margin:8px 0 25px">Education connected to programming, simulation and real-world skills.</p>
+  <div class="grid" id="learningCards"></div>
+</section>
+
+<section id="courseDetail" class="page">
+  <div id="courseDetailContent"></div>
+</section>
+
+<section id="lab" class="page">
+  <h1>⚛️ Quantum Lab</h1><p class="muted" style="margin:8px 0 25px">Build a circuit and run the demo simulator.</p>
+  <div class="lab">
+    <div class="panel">
+      <h3>Quantum Gates</h3>
+      <div class="gates">
+        <button class="gate" onclick="addGate('H')">H</button>
+        <button class="gate" onclick="addGate('X')">X</button>
+        <button class="gate" onclick="addGate('Z')">Z</button>
+        <button class="gate" onclick="addGate('CX')">CX</button>
+      </div>
+      <button class="smallbtn" onclick="simulate()">▶ Run Simulation</button>
+      <div class="circuit">
+        <div class="qubit"><b>q₀</b><div class="line"></div><strong id="q0">|0⟩</strong><div class="line"></div></div>
+        <div class="qubit"><b>q₁</b><div class="line"></div><strong>|0⟩</strong><div class="line"></div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Simulation Output</h3>
+      <div class="output" id="output">Waiting for simulation...</div>
+      <h3 style="margin-top:20px">Visualization</h3>
+      <div style="height:170px;border-radius:12px;background:#f8fafc;display:flex;align-items:center;justify-content:center;font-size:70px">◉</div>
+    </div>
+  </div>
+</section>
+
+<section id="code" class="page">
+  <h1>💻 Quantum Programming</h1><p class="muted" style="margin:8px 0 20px">Practice quantum programming in a familiar editor.</p>
+  <div class="panel">
+<textarea id="code" class="code">from qiskit import QuantumCircuit
+
+qc = QuantumCircuit(2)
+
+qc.h(0)
+qc.cx(0, 1)
+
+print(qc)</textarea>
+<br>
+<button class="smallbtn" onclick="runCode()">▶ Run Code</button>
+<div class="output" id="console" style="margin-top:15px">Ready...</div>
+  </div>
+</section>
+
+<section id="tutor" class="page">
+  <h1>🤖 Quantum AI Tutor</h1><p class="muted" style="margin:8px 0 25px">Ask questions and get concept-level guidance.</p>
+  <div class="chat">
+    <div class="messages" id="messages">
+      <div class="msg ai">Hi! I'm your Quantum Tutor. Ask me about qubits, superposition, gates, Grover's algorithm or programming.</div>
+    </div>
+    <div class="chatbar">
+      <input id="question" placeholder="What is superposition?">
+      <button onclick="askTutor()">Ask</button>
+      <script>
+document.getElementById("question").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        askTutor();
+    }
+});
+</script>
+    </div>
+  </div>
+</section>
+
+<section id="challenges" class="page">
+  <h1>🏆 Challenges</h1><p class="muted" style="margin:8px 0 25px">Turn concepts into practical skills.</p>
+  <div class="grid" id="challengeCards"></div>
+</section>
+
+<section id="profile" class="page">
+  <h1>👤 Workforce Profile</h1><p class="muted" style="margin:8px 0 25px">A portfolio of quantum-ready skills.</p>
+  <div class="panel">
+    <h2 id="profileName">Demo Student</h2>
+    <p class="muted">Aspiring Quantum Developer</p>
+    <br>
+    <h3>Skill Score</h3><h1 style="color:#635bff" id="profileScore">742</h1>
+    <br>
+    <h3>Badges</h3>
+    <div id="badges"></div>
+    <br>
+    <p>Projects: <b>8</b> &nbsp; Challenges: <b>24</b> &nbsp; Certificates: <b>3</b></p>
+  </div>
+</section>
+
+</main>
+</div>
+</section>
+
+<script>
+let currentUser=null;
+let gates=[];
+function togglePassword(inputId, button) {
+  const input = document.getElementById(inputId);
+
+  if (input.type === "password") {
+    input.type = "text";
+    button.innerText = "🙈";
+  } else {
+    input.type = "password";
+    button.innerText = "👁";
+  }
+}
+function toggleAccountMenu() {
+  const menu = document.getElementById("accountMenu");
+
+  if (menu.style.display === "none") {
+    menu.style.display = "block";
+  } else {
+    menu.style.display = "none";
+  }
+
+  document.getElementById("accountMenuName").innerText =
+    currentUser.name;
+
+  document.getElementById("accountMenuEmail").innerText =
+    currentUser.email;
+}
+function openProfileFromMenu() {
+  document.getElementById("accountMenu").style.display = "none";
+
+  showPage("profile");
+
+  if (typeof loadProfile === "function") {
+    loadProfile();
+  }
+}
+function openHelp() {
+  window.location.href =
+    "mailto:varrabharathkumar143@gmail.com?subject=Quantum%20Algorithm%20App%20Help";
+}
+function logout(){
+  localStorage.removeItem("qaUser");
+  location.reload();
+}
+
+async function api(url, options={}) {
+  const r=await fetch(url,{headers:{"Content-Type":"application/json"},...options});
+  const data=await r.json();
+  if(!r.ok) throw new Error(data.message || "Request failed");
+  return data;
+}
+
+
+async function login() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  const error = document.getElementById("loginError");
+
+  try {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      error.innerText = data.message || "Invalid login credentials.";
+      return;
+    }
+
+    
+    currentUser = data.user;
+
+const newUserEmail = localStorage.getItem("newQuantumUser");
+
+if (newUserEmail === email) {
+
+  currentUser.isNewUser = true;
+
+  localStorage.removeItem("newQuantumUser");
+
+} else {
+
+  currentUser.isNewUser = false;
+
+}
+
+localStorage.setItem(
+  "qaUser",
+  JSON.stringify(currentUser)
+);
+
+    error.innerText = "";
+
+    document.getElementById("login").style.display = "none";
+    document.getElementById("register").style.display = "none";
+    document.getElementById("app").style.display = "block";
+
+    loadDashboard();
+
+  } catch (error) {
+    document.getElementById("loginError").innerText =
+      "Unable to connect to the server.";
+  }
+}
+
+function logout(){
+  localStorage.removeItem("qaUser");
+  location.reload();
+}
+
+
+function showPage(page, el) {
+
+  document.querySelectorAll(".page")
+    .forEach(x => x.classList.remove("active"));
+
+  const target = document.getElementById(page);
+
+  if (target) {
+    target.classList.add("active");
+  }
+
+  if (el) {
+    document.querySelectorAll(".menu")
+      .forEach(x => x.classList.remove("active"));
+
+    el.classList.add("active");
+  }
+
+  if (page === "learn" && currentUser) {
+    loadLearnCourses();
+  }
+}
+
+
+
+async function loadDashboard() {
+
+  document.getElementById("userName").innerText =
+    currentUser.name;
+
+  document.getElementById("avatar").innerText =
+    currentUser.name[0];
+
+  if (currentUser.isNewUser) {
+    document.getElementById("welcomeText").innerText = "Welcome";
+
+    currentUser.isNewUser = false;
+
+    localStorage.setItem(
+      "qaUser",
+      JSON.stringify(currentUser)
+    );
+
+  } else {
+    document.getElementById("welcomeText").innerText =
+      "Welcome back";
+  }
+
+
+  try {
+
+    const profile = await api(
+      `/api/profile/${currentUser.id}`
+    );
+
+    currentUser = {
+      ...currentUser,
+      ...profile
+    };
+
+    localStorage.setItem(
+      "qaUser",
+      JSON.stringify(currentUser)
+    );
+
+    document.getElementById("progress").innerText =
+      (profile.progress || 0) + "%";
+
+    document.getElementById("skill").innerText =
+      profile.skillScore || 0;
+
+    document.getElementById("projectsBuilt").innerText =
+      profile.projects || 0;
+
+    document.getElementById("challengesCompleted").innerText =
+      profile.challengesCompleted || 0;
+
+    document.getElementById("profileName").innerText =
+      profile.name;
+
+    document.getElementById("profileScore").innerText =
+      profile.skillScore || 0;
+
+    document.getElementById("badges").innerHTML =
+      (profile.badges || [])
+        .map(b => `<span class="badge">${b}</span>`)
+        .join("");
+
+
+  } catch (error) {
+
+    console.error(
+      "Dashboard profile error:",
+      error
+    );
+
+  }
+
+  try {
+
+    const courses = await api(
+      `/api/learn-courses?userId=${currentUser.id}`
+    );
+
+
+    const html = courses.map(c => `
+      <div class="card">
+
+        <div class="icon">${c.icon}</div>
+
+        <h3>${c.title}</h3>
+
+        <p>
+          ${c.level} · ${c.lessons} lessons
+        </p>
+
+        <div class="progress">
+          <div style="width:${c.progress}%"></div>
+        </div>
+
+        <small>
+          ${c.progress}% complete
+        </small>
+
+        <br>
+
+        <button
+          class="smallbtn"
+          onclick="openCourse(${c.id})">
+          Continue
+        </button>
+
+      </div>
+    `).join("");
+
+
+    document.getElementById("courseCards").innerHTML =
+      html;
+
+
+  } catch (error) {
+
+    console.error(
+      "Course loading error:",
+      error
+    );
+
+  }
+
+  try {
+
+    const challenges = await api(
+      "/api/challenges"
+    );
+
+
+    document.getElementById("challengeCards").innerHTML =
+      challenges.map(c => `
+        <div class="card">
+
+          <div class="icon">🏆</div>
+
+          <h3>${c.title}</h3>
+
+          <p>
+            ${c.difficulty} · ${c.xp} XP
+          </p>
+
+          <button
+            class="smallbtn"
+            onclick="alert('Challenge started: ${c.title}')">
+            Start Challenge
+          </button>
+
+        </div>
+      `).join("");
+
+
+  } catch (error) {
+
+    console.error(
+      "Challenge loading error:",
+      error
+    );
+
+  }
+
+}
+
+async function loadLearnCourses() {
+
+  const container = document.getElementById("learningCards");
+
+  if (!container) return;
+
+  try {
+
+    const courses = await api(
+      `/api/learn-courses?userId=${currentUser.id}`
+    );
+
+    container.innerHTML = courses.map(course => {
+
+      const buttonText =
+        course.progress > 0 ? "Continue" : "Open";
+
+      return `
+        <div class="card">
+
+          <div class="icon">${course.icon}</div>
+
+          <h3>${course.title}</h3>
+
+          <p>
+            ${course.level} · ${course.lessons} lessons
+          </p>
+
+          <p>
+            ${course.description}
+          </p>
+
+          <div class="progress">
+            <div style="width:${course.progress}%"></div>
+          </div>
+
+          <small>
+            ${course.progress}% complete
+          </small>
+
+          <br>
+
+          <button
+            class="smallbtn"
+            onclick="openCourse(${course.id})"
+          >
+            ${buttonText}
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+
+  } catch (error) {
+
+    console.error("Learn courses error:", error);
+
+    container.innerHTML =
+      "<p>Unable to load learning courses.</p>";
+  }
+}
+
+
+async function openCourse(courseId) {
+
+  try {
+
+    const courses = await api(
+      `/api/course/${courseId}?userId=${currentUser.id}`
+    );
+
+    const course = courses;
+
+    if (!course) {
+      alert("Course not found.");
+      return;
+    }
+
+    let html = `
+      <button
+        class="smallbtn"
+        onclick="showPage('learn')"
+      >
+        ← Back to Courses
+      </button>
+
+      <div style="margin-top:20px">
+
+        <h1>${course.icon} ${course.title}</h1>
+
+        <p class="muted">
+          ${course.description}
+        </p>
+
+        <h3>
+          Course Progress:
+          <span id="courseDetailProgress">
+            ${course.progress}%
+          </span>
+        </h3>
+
+        <div class="course-detail-layout">
+
+          <div class="chapter-list">
+
+            <h3>Chapters</h3>
+
+            ${course.chapters.map((chapter, index) => `
+              <button
+                class="chapter-button"
+                onclick="showChapter(${course.id}, ${index})"
+              >
+                <span>
+                  ${index + 1}. ${chapter.title}
+                </span>
+
+                <span>
+                  ${chapter.completed ? "✓" : "○"}
+                </span>
+              </button>
+            `).join("")}
+
+          </div>
+
+          <div
+            id="chapterContent"
+            class="chapter-content"
+          >
+            <h2>Select a chapter</h2>
+            <p>
+              Choose a chapter from the left to start learning.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    `;
+
+    document.getElementById("courseDetailContent").innerHTML =
+      html;
+
+    showPage("courseDetail");
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Unable to open course.");
+  }
+}
+
+async function showChapter(courseId, chapterIndex) {
+
+  try {
+
+    const course = await api(
+      `/api/course/${courseId}?userId=${currentUser.id}`
+    );
+
+    const chapter =
+      course.chapters[chapterIndex];
+
+    if (!chapter) {
+      return;
+    }
+
+    const lessonNumber =
+      chapterIndex + 1;
+
+    const resourcesHTML =
+      chapter.resources.map(resource => `
+        <li>
+          <a
+            href="${resource.url}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ${resource.title}
+          </a>
+        </li>
+      `).join("");
+
+    const videosHTML =
+      chapter.videos.map(video => `
+        <li>
+          <a
+            href="${video.url}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ▶ ${video.title}
+          </a>
+        </li>
+      `).join("");
+
+    document.getElementById(
+      "chapterContent"
+    ).innerHTML = `
+
+      <h2>
+        ${chapter.title}
+      </h2>
+
+      <div class="card">
+
+        <h3>📚 Notes</h3>
+
+        <p>
+          ${chapter.notes}
+        </p>
+
+      </div>
+
+      <div class="card">
+
+        <h3>🔗 Free Learning Resources</h3>
+
+        <ul>
+          ${resourcesHTML}
+        </ul>
+
+      </div>
+
+      <div class="card">
+
+        <h3>▶ Video Lectures</h3>
+
+        <ul>
+          ${videosHTML}
+        </ul>
+
+      </div>
+
+      <button
+        class="primary"
+        onclick="
+          completeLesson(
+            ${courseId},
+            ${lessonNumber}
+          )
+        "
+        ${chapter.completed ? "disabled" : ""}
+      >
+        ${
+          chapter.completed
+            ? "✓ Completed"
+            : "Mark as Completed"
+        }
+      </button>
+    `;
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Unable to load chapter.");
+  }
+}
+
+
+
+async function completeLesson(courseId, lessonNumber) {
+
+  try {
+
+    const result = await api(
+      "/api/lesson/complete",
+      {
+        method: "POST",
+
+        body: JSON.stringify({
+          userId: currentUser.id,
+          courseId,
+          lessonNumber
+        })
+      }
+    );
+
+    currentUser.skillScore =
+      result.skillScore;
+
+    currentUser.progress =
+      result.overallProgress;
+
+    localStorage.setItem(
+      "qaUser",
+      JSON.stringify(currentUser)
+    );
+
+    document.getElementById(
+      "courseDetailProgress"
+    ).innerText =
+      result.progress + "%";
+
+    await loadDashboard();
+
+    await openCourse(courseId);
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(error.message);
+  }
+}
+
+async function simulate(){
+  if(!gates.length){document.getElementById("output").innerText="Add at least one gate.";return;}
+  try{
+    const data=await api("/api/simulate",{method:"POST",body:JSON.stringify({gates})});
+    document.getElementById("output").innerText=
+      "Circuit: "+data.gates.join(" → ")+"\\n\\n"+
+      data.result.map(x=>x.state+"  "+x.probability+"%").join("\\n")+
+      "\\n\\n"+data.explanation;
+  }catch(e){document.getElementById("output").innerText=e.message;}
+}
+
+function runCode(){
+  document.getElementById("console").innerText=
+`Demo execution successful.
+
+┌───┐
+q₀: ┤ H ├──■──
+    └───┘┌─┴─┐
+q₁: ─────┤ X ├
+         └───┘
+
+Output:
+Bell-state style circuit generated.`;
+}
+
+async function askTutor(){
+  const input=document.getElementById("question");
+  const q=input.value.trim();
+  if(!q)return;
+  const messages=document.getElementById("messages");
+  messages.innerHTML+=`<div class="msg user">${escapeHtml(q)}</div>`;
+  input.value="";
+  try{
+    const data=await api("/api/tutor",{method:"POST",body:JSON.stringify({question:q})});
+    messages.innerHTML+=`<div class="msg ai">${escapeHtml(data.answer)}</div>`;
+    messages.scrollTop=messages.scrollHeight;
+  }catch(e){
+    messages.innerHTML+=`<div class="msg ai">${escapeHtml(e.message)}</div>`;
+  }
+}
+
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+
+const saved=localStorage.getItem("qaUser");
+if(saved){
+  currentUser=JSON.parse(saved);
+  document.getElementById("login").style.display="none";
+  document.getElementById("app").style.display="block";
+  loadDashboard();
+}
+function showRegister() {
+  document.getElementById("login").style.display = "none";
+  document.getElementById("register").style.display = "flex";
+}
+
+function showLogin() {
+  document.getElementById("register").style.display = "none";
+  document.getElementById("login").style.display = "flex";
+}
+
+async function register() {
+  
+  const name = document.getElementById("registerName").value.trim();
+  const email = document.getElementById("registerEmail").value.trim();
+  const password = document.getElementById("registerPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  const role = document.getElementById("registerRole").value;
+  const message = document.getElementById("registerMessage");
+
+ 
+  if (!name || !email || !password || !confirmPassword) {
+
+  message.style.color = "#dc2626";
+  message.innerText = "Please fill all fields.";
+
+  return;
+}
+
+if (password !== confirmPassword) {
+
+  message.style.color = "#dc2626";
+  message.innerText = "Passwords do not match.";
+
+  return;
+}
+
+if (password.length < 6) {
+
+  message.style.color = "#dc2626";
+  message.innerText = "Password must be at least 6 characters.";
+
+  return;
+}
+
+  try {
+    const response = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        role
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      message.style.color = "#dc2626";
+      message.innerText = data.message;
+      return;
+    }
+
+    
+    message.style.color = "#16a34a";
+
+message.innerText =
+  "✅ Account created successfully! You can now sign in.";
+
+localStorage.setItem("newQuantumUser", email);
+
+      localStorage.setItem("newUser", "true");
+
+    document.getElementById("registerName").value = "";
+    document.getElementById("registerEmail").value = "";
+    document.getElementById("registerPassword").value = "";
+
+    setTimeout(() => {
+      showLogin();
+
+      document.getElementById("email").value = email;
+      document.getElementById("password").value = password;
+    }, 1200);
+
+  } catch (error) {
+    message.style.color = "#dc2626";
+    message.innerText =
+      "Unable to connect to the server.";
+  }
+}
+document.addEventListener("keydown", function(event) {
+  if (event.key !== "Enter") return;
+
+  const element = event.target;
+
+  // Don't interfere with text areas
+  if (element.tagName === "TEXTAREA") return;
+
+  // Only work for form fields
+  if (
+    element.tagName !== "INPUT" &&
+    element.tagName !== "SELECT"
+  ) {
+    return;
+  }
+
+  event.preventDefault();
+
+  const fields = Array.from(
+    document.querySelectorAll(
+      'input:not([type="hidden"]):not([disabled]), select:not([disabled])'
+    )
+  );
+
+  const currentIndex = fields.indexOf(element);
+
+  if (currentIndex === -1) return;
+
+  // Move to the next field
+  if (currentIndex < fields.length - 1) {
+    fields[currentIndex + 1].focus();
+  } else {
+    // Last field → find the appropriate button
+    const form = element.closest("section");
+
+    if (form) {
+      const button = form.querySelector("button.primary");
+
+      if (button) {
+        button.click();
+      }
+    }
+  }
+});
+</script>
+<script src="/js/login-animation.js" defer></script>
+</body>
+</html>

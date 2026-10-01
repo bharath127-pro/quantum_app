@@ -1,0 +1,19 @@
+{
+  "name": "quantum-algorithm-prototype",
+  "version": "1.0.0",
+  "description": "Basic full-stack prototype for a quantum learning platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.21.0",
+    "@ngrok/ngrok": "^1.7.0",
+    "dotenv": "^17.4.2",
+    "express": "^4.21.2",
+    "mongodb": "^7.6.0",
+    "mongoose": "^9.10.1",
+    "openai": "^7.15.0"
+  }
+}
