@@ -1292,10 +1292,13 @@ async function simulate(){
   if(!gates.length){document.getElementById("output").innerText="Add at least one gate.";return;}
   try{
     const data=await api("/api/simulate",{method:"POST",body:JSON.stringify({gates})});
-    document.getElementById("output").innerText=
-      "Circuit: "+data.gates.join(" → ")+"\\n\\n"+
-      data.result.map(x=>x.state+"  "+x.probability+"%").join("\\n")+
-      "\\n\\n"+data.explanation;
+    document.getElementById("output").innerText =
+  "Circuit: " + data.gates.join(" → ") + "\n\n" +
+  data.result
+    .map(x => x.state + "  " + x.probability + "%")
+    .join("\n") +
+  "\n\n" +
+  data.explanation;
   }catch(e){document.getElementById("output").innerText=e.message;}
 }
 
