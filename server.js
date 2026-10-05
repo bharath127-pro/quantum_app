@@ -1,4 +1,4 @@
-const ngrok = require("@ngrok/ngrok");
+
 require("dotenv").config();
 
 const express = require("express");
@@ -1087,19 +1087,8 @@ app.get("/api/profile/:id", async (req, res) => {
 
 
 
-app.listen(PORT, async () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-
-    try {
-        const url = await ngrok.forward({
-            addr: PORT,
-            authtoken_from_env: true
-        });
-
-        console.log(`Public URL: ${url.url()}`);
-    } catch (error) {
-        console.error("ngrok error:", error);
-    }
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
 
